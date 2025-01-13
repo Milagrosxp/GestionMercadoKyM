@@ -4,11 +4,13 @@
  */
 package ucr.ac.cr.gestionmercado.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -16,7 +18,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Producto {
+public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int codeProduct;
@@ -26,14 +28,23 @@ public class Producto {
     private boolean isPromotion;
     private double discount;
     private int units;
+    @ManyToOne
+    private Distributor distributor;
+    @ManyToOne
+    private Compra compra;
 
-    public Producto(int codeProduct, String name, String category, boolean isPromotion, int units) {
+    public Producto(int codeProduct, String name, String category, boolean isPromotion, double discount, int units, Distributor distributor, Compra compra) {
         this.codeProduct = codeProduct;
         this.name = name;
         this.category = category;
         this.isPromotion = isPromotion;
+        this.discount = discount;
         this.units = units;
+        this.distributor = distributor;
+        this.compra = compra;
     }
+
+   
     
     public Producto(int codeProduct, String name, String category, boolean isPromotion, double discount, int units) {
         this.codeProduct = codeProduct;
@@ -95,10 +106,20 @@ public class Producto {
     public void setUnits(int units) {
         this.units = units;
     }
-    
-    
-    
-    
- 
-    
+
+    public Distributor getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(Distributor distributor) {
+        this.distributor = distributor;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
 }

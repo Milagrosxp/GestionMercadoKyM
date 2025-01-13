@@ -4,19 +4,23 @@
  */
 package ucr.ac.cr.gestionmercado.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author marce
  */
 @Entity
-public class Compra {
+public class Compra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int invoiceNumber;
@@ -25,15 +29,29 @@ public class Compra {
     private double total;
     private double discount;
     private Date InvoiceDate;
+    @OneToMany (mappedBy="compra")
+    private ArrayList<Producto>producto;
+    @ManyToOne
+    private Cliente cliente;
 
-    public Compra(int invoiceNumber, double subTotal, double total, double discount, Date InvoiceDate) {
+    public Compra(int invoiceNumber, double subTotal, double total, double discount, Date InvoiceDate, ArrayList<Producto> producto, Cliente cliente) {
         this.invoiceNumber = invoiceNumber;
         this.subTotal = subTotal;
         this.total = total;
         this.discount = discount;
         this.InvoiceDate = InvoiceDate;
+        this.producto = producto;
+        this.cliente = cliente;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+   
     public Compra() {
     }
 
@@ -75,6 +93,14 @@ public class Compra {
 
     public void setInvoiceDate(Date InvoiceDate) {
         this.InvoiceDate = InvoiceDate;
+    }
+
+    public ArrayList<Producto> getProducto() {
+        return producto;
+    }
+
+    public void setProducto(ArrayList<Producto> producto) {
+        this.producto = producto;
     }
     
     

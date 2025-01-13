@@ -5,12 +5,14 @@
 package ucr.ac.cr.gestionmercado.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -28,18 +30,30 @@ public class Cliente implements Serializable {
     private String email;
     private int age;
     private String telephoneNumber;
+    @OneToMany (mappedBy="cliente")
+    private ArrayList<Compra> listaCompra;
 
     public Cliente() {
     }
 
-    public Cliente(int id, String name, String email, int age, String telephoneNumber) {
+    public Cliente(int id, String name, String email, int age, String telephoneNumber, ArrayList<Compra> listaCompra) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
         this.telephoneNumber = telephoneNumber;
+        this.listaCompra = listaCompra;
     }
 
+    public ArrayList<Compra> getListaCompra() {
+        return listaCompra;
+    }
+
+    public void setListaCompra(ArrayList<Compra> listaCompra) {
+        this.listaCompra = listaCompra;
+    }
+
+   
     public int getId() {
         return id;
     }

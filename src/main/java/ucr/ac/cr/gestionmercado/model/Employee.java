@@ -6,21 +6,23 @@
  */
 package ucr.ac.cr.gestionmercado.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author marce
  */
 @Entity
-public class Employee {
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String idEmployee;
+    private int idEmployee;
     @Basic
     private String name;
     private String type;
@@ -28,8 +30,12 @@ public class Employee {
     private String email;
     private char gender;
     private String schedules;
+    private int idJefe;
+    
+    @OneToOne
+    private User user;
 
-    public Employee(String idEmployee, String name, String type, String telephoneNumber, String email, char gender, String schedules) {
+    public Employee(int idEmployee, String name, String type, String telephoneNumber, String email, char gender, String schedules, int idJefe, User user) {
         this.idEmployee = idEmployee;
         this.name = name;
         this.type = type;
@@ -37,18 +43,25 @@ public class Employee {
         this.email = email;
         this.gender = gender;
         this.schedules = schedules;
+        this.idJefe = idJefe;
+        this.user = user;
     }
+
+        
+    
 
     public Employee() {
     }
 
-    public String getIdEmployee() {
+    public int getIdEmployee() {
         return idEmployee;
     }
 
-    public void setIdEmployee(String idEmployee) {
+    public void setIdEmployee(int idEmployee) {
         this.idEmployee = idEmployee;
     }
+
+   
 
     public String getName() {
         return name;
@@ -96,6 +109,22 @@ public class Employee {
 
     public void setSchedules(String schedules) {
         this.schedules = schedules;
+    }
+
+    public int getIdJefe() {
+        return idJefe;
+    }
+
+    public void setIdJefe(int idJefe) {
+        this.idJefe = idJefe;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     

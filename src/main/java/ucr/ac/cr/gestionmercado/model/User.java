@@ -4,24 +4,27 @@
  */
 package ucr.ac.cr.gestionmercado.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author marce
  */
 @Entity
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
       @Basic
     private String userName;
     private String password;
+    
 
     public User(int id, String userName, String password) {
         this.id = id;
